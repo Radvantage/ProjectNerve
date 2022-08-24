@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://CharacterController.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.9
+height = 1.8
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Character" type="KinematicBody" parent="."]
+script = ExtResource( 1 )
+
+[node name="Head" type="Spatial" parent="Character"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
+
+[node name="Camera" type="Camera" parent="Character/Head"]
+fov = 100.0
+far = 400.0
+
+[node name="Body_CollisionShape" type="CollisionShape" parent="Character"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Crown_RayCast" type="RayCast" parent="Character/Body_CollisionShape"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1 )
+enabled = true
+cast_to = Vector3( 0, 1, 0 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 8.73147, 0 )
+light_color = Color( 0.203922, 0.796078, 0.419608, 1 )
+shadow_enabled = true
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.26029, 0 )
+use_collision = true
+width = 16.1293
+depth = 28.1039
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 0.906654, -0.421875, 0, 0.421875, 0.906654, 0, -0.108622, -14.647 )
+width = 16.082
+depth = 26.75
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.41493, -40.3748 )
+use_collision = true
+width = 16.1293
+depth = 28.1039
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/CSGBox/CSGBox3"]
+transform = Transform( 1, 0, 0, 0, 0.969158, -0.246441, 0, 0.246441, 0.969158, 0, -0.108623, -14.647 )
+width = 16.082
+depth = 26.75
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.470478, -3.71809 )
+use_collision = true
+width = 11.9438
+height = 0.514752
+depth = 1.86222
